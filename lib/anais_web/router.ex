@@ -1,6 +1,12 @@
 defmodule AnaisWeb.Router do
   use AnaisWeb, :router
 
+  alias Anais.Guardian
+
+  pipeline :jwt_auth do
+    plug Guardian.AuthPipeline
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -8,7 +14,15 @@ defmodule AnaisWeb.Router do
   scope "/api", AnaisWeb do
     pipe_through :api
 
-    resources "/authors", AuthorController, except: [:new, :edit, :update, :delete]
+    resources "/authors", AuthorController, only: [:create, :show]
+
+    post "/login", AuthorController, :login
+  end
+
+  scope "/api", AnaisWeb do
+    pipe_through [:api, :jwt_auth]
+
+    resources "/authors", AuthorController, only: [:index]
   end
 
   if Mix.env() in [:dev, :test] do

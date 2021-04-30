@@ -23,6 +23,7 @@ defmodule AnaisWeb.ConnCase do
       import Plug.Conn
       import Phoenix.ConnTest
       import AnaisWeb.ConnCase
+      import Anais.Helpers
 
       alias AnaisWeb.Router.Helpers, as: Routes
 

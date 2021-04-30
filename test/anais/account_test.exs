@@ -33,7 +33,7 @@ defmodule Anais.AccountTest do
       assert {:ok, %Author{} = author} = Account.create_author(@valid_attrs)
       assert author.email == "some email"
       assert author.name == "some name"
-      assert author.password =~ "$2b$12$"
+      assert author.password =~ "$2b$04$"
     end
 
     test "create_author/1 with invalid data returns error changeset" do

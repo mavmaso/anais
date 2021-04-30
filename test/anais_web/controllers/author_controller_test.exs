@@ -1,7 +1,7 @@
 defmodule AnaisWeb.AuthorControllerTest do
   use AnaisWeb.ConnCase
 
-  # import Anais.Factory
+  import Anais.Factory
 
   @create_attrs %{
     email: "some email",
@@ -17,8 +17,14 @@ defmodule AnaisWeb.AuthorControllerTest do
 
   describe "index" do
     test "lists all authors", %{conn: conn} do
-      conn = get(conn, Routes.author_path(conn, :index))
-      assert json_response(conn, 200)["data"] == []
+      author = insert(:author)
+
+      conn =
+        login(conn, author)
+        |> get(Routes.author_path(conn, :index))
+
+      assert [expected] = json_response(conn, 200)["data"]
+      assert expected["email"] == author.email
     end
   end
 
@@ -39,6 +45,27 @@ defmodule AnaisWeb.AuthorControllerTest do
     test "renders errors when data is invalid", %{conn: conn} do
       conn = post(conn, Routes.author_path(conn, :create), author: @invalid_attrs)
       assert json_response(conn, 422)["errors"] != %{}
+    end
+  end
+
+  describe "login" do
+    test "a author, returns status :ok", %{conn: conn} do
+      author = insert(:author)
+      params = %{email: author.email, password: "somepassword"}
+
+      conn = post(conn, Routes.author_path(conn, :login, params))
+
+      assert jwt = json_response(conn, 200)["data"]["jwt"]
+      assert jwt =~ "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9"
+    end
+
+    test "can't invalid password, returns 400", %{conn: conn} do
+      author = insert(:author)
+      params = %{email: author.email, password: "errado"}
+
+      conn = post(conn, Routes.author_path(conn, :login, params))
+
+      assert %{"detail" => "Unauthorized"} = json_response(conn, 401)["errors"]
     end
   end
 end

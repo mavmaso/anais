@@ -4,9 +4,41 @@ defmodule Anais.Account do
   """
 
   import Ecto.Query, warn: false
-  alias Anais.Repo
 
   alias Anais.Account.Author
+  alias Anais.Repo
+  alias Anais.Guardian
+
+  def token_sign_in(email, password) do
+    case login_password_auth(email, password) do
+      {:ok, user} ->
+        Guardian.encode_and_sign(user)
+      _ ->
+        {:error, :unauthorized}
+    end
+  end
+
+  defp login_password_auth(email, password) when is_binary(email) and is_binary(password) do
+    with {:ok, user} <- get_by_email(email), do: verify_password(password, user)
+  end
+
+  defp get_by_email(email) when is_binary(email) do
+    case Repo.get_by(Anais.Account.Author, email: email) do
+      nil ->
+        Bcrypt.no_user_verify()
+        {:error, "Login error"}
+      user ->
+        {:ok, user}
+    end
+  end
+
+  defp verify_password(password, %Anais.Account.Author{} = user) when is_binary(password) do
+    if Bcrypt.verify_pass(password, user.password) do
+      {:ok, user}
+    else
+      {:error, :invalid_password}
+    end
+  end
 
   @doc """
   Returns the list of authors.

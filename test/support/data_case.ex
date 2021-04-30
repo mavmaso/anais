@@ -24,6 +24,7 @@ defmodule Anais.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import Anais.DataCase
+      import Anais.Helpers
     end
   end
 

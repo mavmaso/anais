@@ -23,4 +23,12 @@ defmodule AnaisWeb.AuthorController do
     author = Account.get_author!(id)
     render(conn, "show.json", author: author)
   end
+
+  def login(conn, %{"email" => email, "password" => password}) do
+    with {:ok, token, _claims} <- Account.token_sign_in(email, password) do
+      conn |> json(%{data: %{jwt: token}})
+    else
+      _ -> {:error, :unauthorized}
+    end
+  end
 end
