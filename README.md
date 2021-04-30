@@ -38,7 +38,7 @@ just demonstrate the idea/concept not deliver a final product.
   ```
   {
     "author": {
-      "email": "algo@mail.com,
+      "email": "algo@mail.com",
       "password": "somepassword",
       "name": "Alvoro Silva"
     }
@@ -48,8 +48,8 @@ just demonstrate the idea/concept not deliver a final product.
  - Login ( post /api/login )
   ```
   {
-    "email": "algo@mail.com,
-    "password": "somepassword",
+    "email": "algo@mail.com",
+    "password": "somepassword"
   }
   ```
 
@@ -57,7 +57,7 @@ just demonstrate the idea/concept not deliver a final product.
   ```
   {
     "event": {
-      "title": "Event I"
+      "title": "Event I",
       "description": "Evento realizado ..."
     }
   }
