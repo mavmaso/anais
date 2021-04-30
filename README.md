@@ -54,7 +54,7 @@ just demonstrate the idea/concept not deliver a final product.
   ```
 
  - Create Events ( post /api/events )
-   ```
+  ```
   {
     "event": {
       "title": "Event I"
@@ -64,7 +64,7 @@ just demonstrate the idea/concept not deliver a final product.
   ```
 
  - Create Article ( post /api/article )
-   ```
+  ```
   {
     "article": {
       "author_id": 1,
