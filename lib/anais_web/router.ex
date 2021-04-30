@@ -7,6 +7,8 @@ defmodule AnaisWeb.Router do
 
   scope "/api", AnaisWeb do
     pipe_through :api
+
+    resources "/authors", AuthorController, except: [:new, :edit]
   end
 
   # Enables LiveDashboard only for development
