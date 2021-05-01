@@ -18,6 +18,7 @@ defmodule Anais.Account.Author do
     |> cast(attrs, @required)
     |> validate_required( @required)
     |> unique_constraint(:email)
+    |> normalize(attrs)
     |> put_password()
   end
 
@@ -26,4 +27,17 @@ defmodule Anais.Account.Author do
   end
 
   defp put_password(changeset), do: changeset
+
+  defp normalize(%Ecto.Changeset{changes: %{email: _}} = changeset, %{email: email}) do
+    new_email =
+      email
+      |> String.trim()
+      |> String.downcase()
+
+    %{changeset | changes: %{changeset.changes | email: new_email}}
+  end
+
+  defp normalize(changeset, _) do
+    changeset
+  end
 end

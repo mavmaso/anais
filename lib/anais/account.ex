@@ -9,6 +9,9 @@ defmodule Anais.Account do
   alias Anais.Repo
   alias Anais.Guardian
 
+  @doc """
+  Returns a Guardian Token or a :error in case of not found a user/password match.
+  """
   def token_sign_in(email, password) do
     case login_password_auth(email, password) do
       {:ok, user} ->
