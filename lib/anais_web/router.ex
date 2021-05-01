@@ -16,6 +16,7 @@ defmodule AnaisWeb.Router do
 
     resources "/authors", AuthorController, only: [:create, :show]
     resources "/events", EventController, only: [:index]
+    resources "/articles", ArticleController, only: [:index, :show]
 
     post "/login", AuthorController, :login
   end
@@ -25,6 +26,7 @@ defmodule AnaisWeb.Router do
 
     resources "/authors", AuthorController, only: [:index]
     resources "/events", EventController, only: [:create]
+    resources "/articles", ArticleController, only: [:create, :update]
   end
 
   if Mix.env() in [:dev, :test] do

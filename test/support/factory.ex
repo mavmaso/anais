@@ -3,4 +3,5 @@ defmodule Anais.Factory do
 
   use Anais.AuthorFactory
   use Anais.EventFactory
+  use Anais.ArticleFactory
 end

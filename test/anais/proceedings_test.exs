@@ -56,4 +56,65 @@ defmodule Anais.ProceedingsTest do
       assert %Ecto.Changeset{} = Proceedings.change_event(event)
     end
   end
+
+  describe "articles" do
+    alias Anais.Proceedings.Article
+
+    @valid_attrs %{abstract: "some abstract", title: "some title"}
+    @update_attrs %{abstract: "some updated abstract", title: "some updated title"}
+    @invalid_attrs %{abstract: nil, title: nil}
+
+    def article_fixture(attrs \\ %{}) do
+      {:ok, article} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Proceedings.create_article()
+
+      article
+    end
+
+    test "list_articles/0 returns all articles" do
+      article = article_fixture()
+      assert Proceedings.list_articles() == [article]
+    end
+
+    test "get_article!/1 returns the article with given id" do
+      article = article_fixture()
+      assert Proceedings.get_article!(article.id) == article
+    end
+
+    test "create_article/1 with valid data creates a article" do
+      assert {:ok, %Article{} = article} = Proceedings.create_article(@valid_attrs)
+      assert article.abstract == "some abstract"
+      assert article.title == "some title"
+    end
+
+    test "create_article/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Proceedings.create_article(@invalid_attrs)
+    end
+
+    test "update_article/2 with valid data updates the article" do
+      article = article_fixture()
+      assert {:ok, %Article{} = article} = Proceedings.update_article(article, @update_attrs)
+      assert article.abstract == "some updated abstract"
+      assert article.title == "some updated title"
+    end
+
+    test "update_article/2 with invalid data returns error changeset" do
+      article = article_fixture()
+      assert {:error, %Ecto.Changeset{}} = Proceedings.update_article(article, @invalid_attrs)
+      assert article == Proceedings.get_article!(article.id)
+    end
+
+    test "delete_article/1 deletes the article" do
+      article = article_fixture()
+      assert {:ok, %Article{}} = Proceedings.delete_article(article)
+      assert_raise Ecto.NoResultsError, fn -> Proceedings.get_article!(article.id) end
+    end
+
+    test "change_article/1 returns a article changeset" do
+      article = article_fixture()
+      assert %Ecto.Changeset{} = Proceedings.change_article(article)
+    end
+  end
 end
