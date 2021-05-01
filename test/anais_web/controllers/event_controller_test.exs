@@ -23,4 +23,19 @@ defmodule AnaisWeb.EventControllerTest do
       assert expected["title"] == event.title
     end
   end
+
+  describe "create" do
+    test "an event with valid date and returns :ok", %{conn: conn} do
+      author = insert(:author)
+      params =  string_params_for(:event)
+
+      conn =
+        login(conn, author)
+        |> post(Routes.event_path(conn, :create, %{"event" => params}))
+
+      assert subject = json_response(conn, 201)["data"]
+      assert subject["title"] == params["title"]
+      assert subject["description"] == params["description"]
+    end
+  end
 end

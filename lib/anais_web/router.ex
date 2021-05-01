@@ -24,6 +24,7 @@ defmodule AnaisWeb.Router do
     pipe_through [:api, :jwt_auth]
 
     resources "/authors", AuthorController, only: [:index]
+    resources "/events", EventController, only: [:create]
   end
 
   if Mix.env() in [:dev, :test] do

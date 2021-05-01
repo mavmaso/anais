@@ -9,10 +9,11 @@ defmodule Anais.Proceedings.Event do
     timestamps()
   end
 
+  @required ~w(title description)a
   @doc false
   def changeset(event, attrs) do
     event
-    |> cast(attrs, [:title, :description])
-    |> validate_required([:title, :description])
+    |> cast(attrs, @required)
+    |> validate_required(@required)
   end
 end
