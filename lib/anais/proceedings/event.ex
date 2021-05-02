@@ -6,6 +6,8 @@ defmodule Anais.Proceedings.Event do
     field :description, :string
     field :title, :string
 
+    has_many :articles, Anais.Proceedings.Article
+
     timestamps()
   end
 

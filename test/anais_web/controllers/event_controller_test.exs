@@ -25,8 +25,7 @@ defmodule AnaisWeb.EventControllerTest do
   end
 
   describe "create" do
-    test "an event with valid date and returns :ok", %{conn: conn} do
-      author = insert(:author)
+    test "an event with valid date and returns :ok", %{conn: conn, author: author} do
       params =  string_params_for(:event)
 
       conn =
@@ -36,6 +35,29 @@ defmodule AnaisWeb.EventControllerTest do
       assert subject = json_response(conn, 201)["data"]
       assert subject["title"] == params["title"]
       assert subject["description"] == params["description"]
+    end
+  end
+
+  describe "gen_pdf" do
+    test "based on a event with article, returns :ok", %{conn: conn, author: author} do
+      %{event: event} = insert(:article)
+
+      conn =
+        login(conn, author)
+        |> post(Routes.event_path(conn, :gen_pdf, %{"id" => event.id}))
+
+      assert subject = json_response(conn, 201)["data"]
+      assert subject =~ "Pdf has been stored in"
+    end
+
+    test "based on a event without article, returns :error", %{conn: conn, author: author} do
+      event = insert(:event)
+
+      conn =
+        login(conn, author)
+        |> post(Routes.event_path(conn, :gen_pdf, %{"id" => event.id}))
+
+      assert json_response(conn, 400)
     end
   end
 end

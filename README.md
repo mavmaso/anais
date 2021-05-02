@@ -79,9 +79,6 @@ just demonstrate the idea/concept not deliver a final product.
 
  - Generates proceedings ( post /api/events/:id/proceedings ) [needs jwt]
 
- - List proceedings ( get /api/proceedings )
-
-
 ## Made by
 
  - [mavmaso](https://github.com/mavmaso)

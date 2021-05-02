@@ -18,4 +18,14 @@ defmodule AnaisWeb.EventController do
       |> render("show.json", event: event)
     end
   end
+
+  def gen_pdf(conn, %{"id" => id}) do
+    with %Event{} = event <- Proceedings.get_event!(id),
+     {:ok, template} <- Proceedings.pdf_template(event),
+     {:ok, filename} <- PdfGenerator.generate(template, delete_temporary: true) do
+      conn
+      |> put_status(:created)
+      |> json(%{data: "Pdf has been stored in #{filename}"})
+    end
+  end
 end

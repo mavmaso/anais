@@ -27,4 +27,11 @@ defmodule AnaisWeb.FallbackController do
     |> put_view(AnaisWeb.ErrorView)
     |> render(:"401")
   end
+
+  def call(conn, {:error, _}) do
+    conn
+    |> put_status(:bad_request)
+    |> put_view(AnaisWeb.ErrorView)
+    |> render(:"400")
+  end
 end

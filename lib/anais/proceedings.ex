@@ -204,4 +204,28 @@ defmodule Anais.Proceedings do
   def preload_article(%Article{} = article) do
     Repo.preload(article, [:author, :event])
   end
+
+  @doc """
+  Returns a html template to be used for generates a pdf based on an event
+  """
+  def pdf_template(%Event{} = event) do
+    e = event |> Repo.preload(:articles)
+
+    case e.articles do
+      [] -> {:error, :empty_event}
+
+      _ ->
+        {:ok , event_template(e)}
+    end
+  end
+
+  defp event_template(%Event{} = event) do
+    "<html><body><h1><b>#{event.title}<b><h1></body></html>"
+    # ~E"""
+    #   <html>
+    #   <h1><b><%event></b></h1>
+    #   <%Enum.each(event.articles,fn a -> <h2><%a.title><h2><p><%a.abstract><p> end)>
+    #   </html>
+    # """
+  end
 end
