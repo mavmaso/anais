@@ -197,4 +197,11 @@ defmodule Anais.Proceedings do
   def change_article(%Article{} = article, attrs \\ %{}) do
     Article.changeset(article, attrs)
   end
+
+  @doc """
+  Returns a Article with all relations data already loaded.
+  """
+  def preload_article(%Article{} = article) do
+    Repo.preload(article, [:author, :event])
+  end
 end

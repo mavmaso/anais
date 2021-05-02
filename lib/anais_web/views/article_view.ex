@@ -1,5 +1,7 @@
 defmodule AnaisWeb.ArticleView do
   use AnaisWeb, :view
+
+  alias Anais.Proceedings
   alias AnaisWeb.ArticleView
 
   def render("index.json", %{articles: articles}) do
@@ -11,8 +13,21 @@ defmodule AnaisWeb.ArticleView do
   end
 
   def render("article.json", %{article: article}) do
-    %{id: article.id,
+    article = Proceedings.preload_article(article)
+
+    %{
+      id: article.id,
       title: article.title,
-      abstract: article.abstract}
+      abstract: article.abstract,
+      author: %{
+        id: article.author.id,
+        name: article.author.name
+      },
+      event: %{
+        id: article.event.id,
+        title: article.event.title,
+        description: article.event.description
+      }
+    }
   end
 end

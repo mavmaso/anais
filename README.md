@@ -53,7 +53,7 @@ just demonstrate the idea/concept not deliver a final product.
   }
   ```
 
- - Create Events ( post /api/events )
+ - Create Events ( post /api/events ) [needs jwt]
   ```
   {
     "event": {
@@ -63,7 +63,7 @@ just demonstrate the idea/concept not deliver a final product.
   }
   ```
 
- - Create Article ( post /api/article )
+ - Create Article ( post /api/article ) [needs jwt]
   ```
   {
     "article": {
@@ -77,7 +77,7 @@ just demonstrate the idea/concept not deliver a final product.
 
  - List Events ( get /api/events )
 
- - Generates proceedings ( post /api/events/:id/proceedings )
+ - Generates proceedings ( post /api/events/:id/proceedings ) [needs jwt]
 
  - List proceedings ( get /api/proceedings )
 

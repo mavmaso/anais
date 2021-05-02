@@ -12,7 +12,7 @@ defmodule Anais.Proceedings.Article do
     timestamps()
   end
 
-  @required ~w(title abstract)a
+  @required ~w(title abstract author_id event_id)a
 
   @doc false
   def changeset(article, attrs) do

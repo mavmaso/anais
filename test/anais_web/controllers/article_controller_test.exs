@@ -6,10 +6,6 @@ defmodule AnaisWeb.ArticleControllerTest do
   # alias Anais.Proceedings
   alias Anais.Proceedings.Article
 
-  @create_attrs %{
-    abstract: "some abstract",
-    title: "some title"
-  }
   @update_attrs %{
     abstract: "some updated abstract",
     title: "some updated title"
@@ -30,20 +26,26 @@ defmodule AnaisWeb.ArticleControllerTest do
   describe "create article" do
     test "renders article when data is valid", %{conn: conn} do
       author = insert(:author)
+      params =
+        params_for(:article)
+        |> Map.merge(%{author_id: author.id})
+        |> Map.merge(%{event_id: insert(:event).id})
 
       conn =
         login(conn, author)
-        |> post(Routes.article_path(conn, :create), article: @create_attrs)
+        |> post(Routes.article_path(conn, :create), article: params)
 
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
       conn = get(conn, Routes.article_path(conn, :show, id))
 
-      assert %{
-               "id" => ^id,
-               "abstract" => "some abstract",
-               "title" => "some title"
-             } = json_response(conn, 200)["data"]
+      assert subject = json_response(conn, 200)["data"]
+      assert subject["id"] == id
+      assert subject["title"] == params.title
+      assert subject["abstract"] == params.abstract
+
+      assert x_event = subject["event"]
+      assert x_event["id"] == params.event_id
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
