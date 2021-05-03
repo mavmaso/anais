@@ -19,7 +19,7 @@ defmodule AnaisWeb.EventController do
     end
   end
 
-  def gen_pdf(conn, %{"id" => id}) do
+  def gen_pdf(conn, %{"event_id" => id}) do
     with %Event{} = event <- Proceedings.get_event!(id),
      {:ok, template} <- Proceedings.pdf_template(event),
      {:ok, filename} <- PdfGenerator.generate(template, delete_temporary: true) do

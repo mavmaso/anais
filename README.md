@@ -11,7 +11,7 @@ just demonstrate the idea/concept not deliver a final product.
 
 - `sudo apt update`
 - `sudo apt upgrade`
-- `sudo apt install -y build-essential libssl-dev zlib1g-dev automake autoconf libncurses5-dev`
+- `sudo apt install -y build-essential libssl-dev zlib1g-dev automake autoconf libncurses5-dev wkhtmltopdf`
 
 ## In loco Setup
 
@@ -72,14 +72,14 @@ just demonstrate the idea/concept not deliver a final product.
       "title": "Artigo I",
       "abstract": "Lorem ...",
       "keywords": ["teste", "artigo"],
-      "co_authors: [1]
+      "co_authors": [1]
     }
   }
   ```
 
  - List Events ( get /api/events )
 
- - Generates proceedings ( post /api/events/:id/proceedings ) [needs jwt]
+ - Generates proceedings ( post /api/events/:event_id/proceedings ) [needs jwt]
 
 ## Made by
 

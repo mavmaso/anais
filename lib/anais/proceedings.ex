@@ -220,7 +220,7 @@ defmodule Anais.Proceedings do
   end
 
   defp event_template(%Event{} = event) do
-    "<html><body><h1><b>#{event.title}<b><h1></body></html>"
+    "<html><body><h1><b>#{event.title}</b><h1></body></html>"
     # ~E"""
     #   <html>
     #   <h1><b><%event></b></h1>

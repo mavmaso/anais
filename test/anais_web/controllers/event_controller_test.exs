@@ -44,7 +44,7 @@ defmodule AnaisWeb.EventControllerTest do
 
       conn =
         login(conn, author)
-        |> post(Routes.event_path(conn, :gen_pdf, %{"id" => event.id}))
+        |> post(Routes.event_event_path(conn, :gen_pdf, event.id))
 
       assert subject = json_response(conn, 201)["data"]
       assert subject =~ "Pdf has been stored in"
@@ -55,7 +55,7 @@ defmodule AnaisWeb.EventControllerTest do
 
       conn =
         login(conn, author)
-        |> post(Routes.event_path(conn, :gen_pdf, %{"id" => event.id}))
+        |> post(Routes.event_event_path(conn, :gen_pdf, event.id))
 
       assert json_response(conn, 400)
     end
