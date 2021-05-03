@@ -48,7 +48,7 @@ defmodule Anais.MixProject do
       {:bcrypt_elixir, "~> 2.0"},
       {:guardian, "~> 2.0"},
       {:pdf_generator, ">=0.6.0" },
-      {:mustache, "~> 0.3.0"}
+      {:temple, "~> 0.4.0"}
     ]
   end
 

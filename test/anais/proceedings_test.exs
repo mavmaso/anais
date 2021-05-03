@@ -59,14 +59,14 @@ defmodule Anais.ProceedingsTest do
     test "pdf_template/1 returns a :ok" do
       article = insert(:article)
       event = article.event
-      # article_b = insert(:article, event: event)
+      article_b = insert(:article, event: event)
 
       assert {:ok, subject} = Proceedings.pdf_template(event)
 
       assert subject =~ "<h1><b>#{event.title}</b>"
-      # assert subject =~ "<h2>#{article.title}"
-      # assert subject =~ "<h2>#{article_b.title}"
-      # assert subject =~ "<p>#{article.abstract}"
+      assert subject =~ "<h2>#{article.title}"
+      assert subject =~ "<h2>#{article_b.title}"
+      assert subject =~ "<p>#{article.abstract}"
     end
   end
 

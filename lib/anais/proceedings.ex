@@ -220,12 +220,19 @@ defmodule Anais.Proceedings do
   end
 
   defp event_template(%Event{} = event) do
-    "<html><body><h1><b>#{event.title}</b><h1></body></html>"
-    # ~E"""
-    #   <html>
-    #   <h1><b><%event></b></h1>
-    #   <%Enum.each(event.articles,fn a -> <h2><%a.title><h2><p><%a.abstract><p> end)>
-    #   </html>
-    # """
+    use Temple
+
+    articles = event.articles
+
+    {:safe , html } = temple do
+      h1 do b event.title end
+
+      for a <- articles do
+        h2 a.title
+        p a.abstract
+      end
+    end
+
+    html
   end
 end
