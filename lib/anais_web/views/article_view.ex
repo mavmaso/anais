@@ -26,7 +26,9 @@ defmodule AnaisWeb.ArticleView do
       event: %{
         id: article.event.id,
         title: article.event.title,
-        description: article.event.description
+        description: article.event.description,
+        keywords: article.keywords,
+        co_authors: Enum.map(article.co_authors, fn ca -> %{id: ca.id, name: ca.name} end)
       }
     }
   end

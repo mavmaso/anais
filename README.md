@@ -70,7 +70,9 @@ just demonstrate the idea/concept not deliver a final product.
       "author_id": 1,
       "event_id": 1,
       "title": "Artigo I",
-      "abstract": "Lorem ..."
+      "abstract": "Lorem ...",
+      "keywords": ["teste", "artigo"],
+      "co_authors: [1]
     }
   }
   ```

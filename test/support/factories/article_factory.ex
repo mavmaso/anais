@@ -6,7 +6,9 @@ defmodule Anais.ArticleFactory do
           title: Faker.Lorem.word,
           abstract: Faker.Lorem.paragraph(1),
           event: build(:event),
-          author: build(:author)
+          author: build(:author),
+          keywords: [Faker.Lorem.word],
+          co_authors: [build(:author)]
         }
       end
     end

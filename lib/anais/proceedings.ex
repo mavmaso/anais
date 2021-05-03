@@ -202,7 +202,7 @@ defmodule Anais.Proceedings do
   Returns a Article with all relations data already loaded.
   """
   def preload_article(%Article{} = article) do
-    Repo.preload(article, [:author, :event])
+    Repo.preload(article, [:author, :event, :co_authors])
   end
 
   @doc """

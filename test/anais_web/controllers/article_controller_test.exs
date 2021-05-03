@@ -26,10 +26,7 @@ defmodule AnaisWeb.ArticleControllerTest do
   describe "create article" do
     test "renders article when data is valid", %{conn: conn} do
       author = insert(:author)
-      params =
-        params_for(:article)
-        |> Map.merge(%{author_id: author.id})
-        |> Map.merge(%{event_id: insert(:event).id})
+      params = params_with_assocs(:article) |> Map.merge(%{co_authors: []})
 
       conn =
         login(conn, author)

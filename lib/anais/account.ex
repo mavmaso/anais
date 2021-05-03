@@ -136,4 +136,10 @@ defmodule Anais.Account do
   def change_author(%Author{} = author, attrs \\ %{}) do
     Author.changeset(author, attrs)
   end
+
+  def list_author(id_list) when id_list != nil do
+    Repo.all(from a in Author, where: a.id in ^id_list)
+  end
+
+  def list_author(_id_list), do: %Author{}
 end

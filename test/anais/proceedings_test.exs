@@ -92,14 +92,14 @@ defmodule Anais.ProceedingsTest do
     end
 
     test "create_article/1 with valid data creates a article" do
-      params =
-        params_for(:article)
-        |> Map.merge(%{author_id: insert(:author).id})
-        |> Map.merge(%{event_id: insert(:event).id})
+      ca = insert(:author)
+      params = params_with_assocs(:article) |> Map.merge(%{co_authors: [ca.id]})
 
       assert {:ok, %Article{} = article} = Proceedings.create_article(params)
       assert article.abstract == params.abstract
       assert article.title == params.title
+      assert article.keywords == params.keywords
+      assert List.first(article.co_authors).id == ca.id
     end
 
     test "create_article/1 with invalid data returns error changeset" do
