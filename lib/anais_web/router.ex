@@ -18,7 +18,7 @@ defmodule AnaisWeb.Router do
     resources "/events", EventController, only: [:index]
     resources "/articles", ArticleController, only: [:index, :show]
 
-    post "/login", AuthorController, :login
+    post "/login", SessionController, :login
   end
 
   scope "/api", AnaisWeb do
