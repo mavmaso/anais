@@ -19,6 +19,7 @@ just demonstrate the idea/concept not deliver a final product.
 - Create and migrate your database with `mix ecto.setup`
 - Start Phoenix endpoint with `mix phx.server`
 - Run complete tests `mix test`
+- Full setup can be done too usign: `mix setup`
 
 ## Database
   PostgreSQL
@@ -34,7 +35,7 @@ just demonstrate the idea/concept not deliver a final product.
 
 ### Endpoint
 
- - Add authors ( post /api/sign_up )
+ - Add authors ( post /api/authors )
   ```
   {
     "author": {
@@ -48,7 +49,7 @@ just demonstrate the idea/concept not deliver a final product.
  - Login ( post /api/login )
   ```
   {
-    "email": "algo@mail.com",
+    "email": "algus@mail.com",
     "password": "somepassword"
   }
   ```

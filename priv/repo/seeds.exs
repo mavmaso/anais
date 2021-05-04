@@ -1,11 +1,9 @@
-# Script for populating the database. You can run it as:
-#
-#     mix run priv/repo/seeds.exs
-#
-# Inside the script, you can read and write to any of your
-# repositories directly:
-#
-#     Anais.Repo.insert!(%Anais.SomeSchema{})
-#
-# We recommend using the bang functions (`insert!`, `update!`
-# and so on) as they will fail if something goes wrong.
+alias Anais.Repo
+alias Anais.Account
+
+Repo.insert!(%Account.Author{
+  email: "algus@mail.com",
+  password: "$2b$12$nKyVd1Nd6pWhpFFNp6rzQOpM2sny5WwRdzeycQ2kDeKoxhYbe5iPO",
+  name: "Seeder Silva"
+  }
+)
