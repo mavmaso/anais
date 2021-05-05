@@ -220,18 +220,9 @@ defmodule Anais.Proceedings do
   end
 
   defp event_template(%Event{} = event) do
-    use Temple
+    articles = Repo.all(from a in Article, where: a.event_id == ^event.id, order_by: a.title)
 
-    articles = event.articles
-
-    {:safe , html } = temple do
-      h1 do b event.title end
-
-      for a <- articles do
-        h2 a.title
-        p a.abstract
-      end
-    end
+    {:safe , html } = Anais.HtmlTemplate.event_to_html(event, articles)
 
     html
   end
