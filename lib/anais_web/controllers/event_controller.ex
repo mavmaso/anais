@@ -32,6 +32,14 @@ defmodule AnaisWeb.EventController do
     end
   end
 
+  def update(conn, %{"id" => id, "event" => event_params}) do
+    event = Proceedings.get_event!(id)
+
+    with {:ok, %Event{} = event} <- Proceedings.update_event(event, event_params) do
+      render(conn, "show.json", event: event)
+    end
+  end
+
   def gen_pdf(conn, %{"event_id" => id}) do
     with %Event{} = event <- Proceedings.get_event!(id),
      {:ok, template} <- Proceedings.pdf_template(event),

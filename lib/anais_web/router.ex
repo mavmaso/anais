@@ -27,7 +27,7 @@ defmodule AnaisWeb.Router do
     resources "/authors", AuthorController, only: [:index]
     resources "/articles", ArticleController, only: [:create, :update, :delete]
 
-    resources "/events", EventController, only: [:create, :delete] do
+    resources "/events", EventController, only: [:create, :delete, :update] do
       post "/proceedings", EventController, :gen_pdf
     end
   end

@@ -3,9 +3,12 @@ defmodule AnaisWeb.EventControllerTest do
 
   import Anais.Factory
 
-  # @create_attrs %{title: "some email", description: "some name"}
+  @invalid_attrs %{title: nil, description: nil}
 
-  # @invalid_attrs %{title: nil, description: nil}
+  defp create_event(_) do
+    event = insert(:event)
+    %{event: event}
+  end
 
   setup %{conn: conn} do
     author = insert(:author)
@@ -64,6 +67,36 @@ defmodule AnaisWeb.EventControllerTest do
       assert_error_sent 404, fn ->
         get(conn, Routes.event_path(conn, :show, event))
       end
+    end
+  end
+
+  describe "update event" do
+    setup [:create_event]
+
+    test "renders event when data is valid", %{conn: conn, event: %{id: id} = event} do
+      author = insert(:author)
+      params = params_for(:event)
+
+      conn =
+        login(conn, author)
+        |> put(Routes.event_path(conn, :update, event), event: params)
+
+      assert %{"id" => ^id} = json_response(conn, 200)["data"]
+
+      conn = get(conn, Routes.event_path(conn, :show, id))
+
+      assert subject = json_response(conn, 200)["data"]
+      assert subject["id"] == id
+      assert subject["title"] == params.title
+    end
+
+    test "renders errors when data is invalid", %{conn: conn, event: event} do
+      author = insert(:author)
+
+      conn =
+        login(conn, author)
+        |> put(Routes.event_path(conn, :update, event), event: @invalid_attrs)
+      assert json_response(conn, 422)["errors"] != %{}
     end
   end
 
