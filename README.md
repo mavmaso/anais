@@ -21,6 +21,14 @@ just demonstrate the idea/concept not deliver a final product.
 - Run complete tests `mix test`
 - Full setup can be done too usign: `mix setup`
 
+## Docker
+
+```console
+$ docker-compose build
+$ docker-compose run --rm runner mix setup
+$ docker-compose up # Now access http://localhost:4000
+```
+
 ## Database
   PostgreSQL
   ```
@@ -39,9 +47,9 @@ just demonstrate the idea/concept not deliver a final product.
   ```
   {
     "author": {
-      "email": "algo@mail.com",
+      "email": "YOURMAIL@mail.com",
       "password": "somepassword",
-      "name": "Alvoro Silva"
+      "name": "YOUR NAME"
     }
   }
   ```

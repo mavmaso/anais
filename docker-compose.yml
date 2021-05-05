@@ -1,0 +1,28 @@
+version: '3'
+services:
+  anais_phoenix:
+    container_name: anais_phoenix
+    build:
+      context: .
+    environment:
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: anais_dev
+      PGPORT: 5432
+      PGHOST: anais_db
+    ports:
+      - "4000:4000"
+    depends_on:
+      - anais_db
+  anais_db:
+    container_name: anais_db
+    image: postgres:13.0
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGDATA: /var/lib/postgresql/data/pgdata
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:
