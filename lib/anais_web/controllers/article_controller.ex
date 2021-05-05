@@ -25,6 +25,14 @@ defmodule AnaisWeb.ArticleController do
     render(conn, "show.json", article: article)
   end
 
+  def delete(conn, %{"id" => id}) do
+    article = Proceedings.get_article!(id)
+
+    with {:ok, %Article{}} <- Proceedings.delete_article(article) do
+      send_resp(conn, :no_content, "")
+    end
+  end
+
   def update(conn, %{"id" => id, "article" => article_params}) do
     article = Proceedings.get_article!(id)
 

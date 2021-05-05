@@ -86,6 +86,23 @@ defmodule AnaisWeb.ArticleControllerTest do
     end
   end
 
+  describe "delete article" do
+    setup [:create_article]
+
+    test "deletes chosen article", %{conn: conn, article: article} do
+      author = insert(:author)
+
+      conn =
+        login(conn, author)
+        |> delete(Routes.article_path(conn, :delete, article))
+
+      assert response(conn, 204)
+      assert_error_sent 404, fn ->
+        get(conn, Routes.article_path(conn, :show, article))
+      end
+    end
+  end
+
   defp create_article(_) do
     article = insert(:article)
     %{article: article}

@@ -51,6 +51,22 @@ defmodule AnaisWeb.EventControllerTest do
     end
   end
 
+  describe "delete event" do
+    test "deletes chosen event", %{conn: conn} do
+      event = insert(:event)
+      author = insert(:author)
+
+      conn =
+        login(conn, author)
+        |> delete(Routes.event_path(conn, :delete, event))
+
+      assert response(conn, 204)
+      assert_error_sent 404, fn ->
+        get(conn, Routes.event_path(conn, :show, event))
+      end
+    end
+  end
+
   describe "gen_pdf" do
     test "based on a event with article, returns :ok", %{conn: conn, author: author} do
       %{event: event} = insert(:article)
