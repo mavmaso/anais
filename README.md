@@ -46,7 +46,7 @@ just demonstrate the idea/concept not deliver a final product.
   }
   ```
 
- - Login ( post /api/login )
+ - Login ( post /api/login ) [returns a jwt]
   ```
   {
     "email": "algus@mail.com",
@@ -54,7 +54,7 @@ just demonstrate the idea/concept not deliver a final product.
   }
   ```
 
- - Create Events ( post /api/events ) [needs jwt]
+ - Create Events ( post /api/events ) [needs Bearer Token]
   ```
   {
     "event": {
@@ -64,7 +64,7 @@ just demonstrate the idea/concept not deliver a final product.
   }
   ```
 
- - Create Article ( post /api/article ) [needs jwt]
+ - Create Article ( post /api/article ) [needs Bearer Token]
   ```
   {
     "article": {
@@ -80,7 +80,7 @@ just demonstrate the idea/concept not deliver a final product.
 
  - List Events ( get /api/events )
 
- - Generates proceedings ( post /api/events/:event_id/proceedings ) [needs jwt]
+ - Generates proceedings ( post /api/events/:event_id/proceedings ) [needs Bearer Token]
 
 ## Made by
 
