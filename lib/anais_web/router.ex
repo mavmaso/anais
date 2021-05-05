@@ -15,7 +15,7 @@ defmodule AnaisWeb.Router do
     pipe_through :api
 
     resources "/authors", AuthorController, only: [:create, :show]
-    resources "/events", EventController, only: [:index]
+    resources "/events", EventController, only: [:index, :show]
     resources "/articles", ArticleController, only: [:index, :show]
 
     post "/login", SessionController, :login

@@ -38,6 +38,19 @@ defmodule AnaisWeb.EventControllerTest do
     end
   end
 
+  describe "show" do
+    test "render an event, returns :ok", %{conn: conn} do
+      event = insert(:event)
+
+      conn = get(conn, Routes.event_path(conn, :show, event.id))
+
+      assert subject = json_response(conn, 200)["data"]
+      assert subject["id"] == event.id
+      assert subject["title"] == event.title
+      assert subject["description"] == event.description
+    end
+  end
+
   describe "gen_pdf" do
     test "based on a event with article, returns :ok", %{conn: conn, author: author} do
       %{event: event} = insert(:article)
