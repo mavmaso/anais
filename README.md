@@ -89,6 +89,27 @@ $ docker-compose up # Now access http://localhost:4000
 
  - Generates proceedings ( post /api/events/:event_id/proceedings ) [needs Bearer Token]
 
+ - All endpoints:
+  ```
+    GET     /api/authors/:id                   show
+    POST    /api/authors                       create
+    GET     /api/events                        index
+    GET     /api/events/:id                    show
+    GET     /api/articles                      index
+    GET     /api/articles/:id                  show
+    POST    /api/login                         login
+    GET     /api/authors                       index
+    POST    /api/articles                      create
+    PATCH   /api/articles/:id                  update
+    PUT     /api/articles/:id                  update
+    DELETE  /api/articles/:id                  delete
+    POST    /api/events                        create
+    PATCH   /api/events/:id                    update
+    PUT     /api/events/:id                    update
+    DELETE  /api/events/:id                    delete
+    POST    /api/events/:event_id/proceedings  gen_pdf
+  ```
+
 ## Made by
 
  - [mavmaso](https://github.com/mavmaso)
