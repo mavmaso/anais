@@ -1,24 +1,20 @@
-#!/bin/sh
+#!/bin/bash
+# Docker entrypoint script.
 
-set -e
-
-# Wait for Postgres to become available.
-until psql -h db -U "postgres" -c '\q' 2>/dev/null; do
-  >&2 echo "Postgres is unavailable - sleeping"
-  sleep 1
+# Wait until Postgres is ready
+while ! pg_isready -q -h $PGHOST -p $PGPORT -U $PGUSER
+do
+  echo "$(date) - waiting for database to start"
+  sleep 2
 done
 
-echo "\nPostgres is available: continuing with database setup..."
+# Create, migrate, and seed database if it doesn't exist.
+if [[ -z psql -Atqc "\\list $PGDATABASE" ]]; then
+  echo "Database $PGDATABASE does not exist. Creating..."
+  createdb -E UTF8 $PGDATABASE -l en_US.UTF-8 -T template0
+  mix ecto.migrate
+  mix run priv/repo/seeds.exs
+  echo "Database $PGDATABASE created."
+fi
 
-
-# Potentially Set up the database
-mix ecto.create
-mix ecto.migrate
-
-echo "\nTesting the installation..."
-# "Prove" that install was successful by running the tests
-mix test
-
-echo "\n Launching Phoenix web server..."
-# Start the phoenix web server
-mix phx.server
+exec mix phx.server

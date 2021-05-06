@@ -24,8 +24,7 @@ just demonstrate the idea/concept not deliver a final product.
 ## Docker
 
 ```console
-$ docker-compose build
-$ docker-compose run --rm runner mix setup
+$ docker-compose up --build
 $ docker-compose up # Now access http://localhost:4000
 ```
 

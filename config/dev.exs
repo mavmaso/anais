@@ -1,13 +1,27 @@
 use Mix.Config
 
 # Configure your database
-config :anais, Anais.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "anais_dev",
-  hostname: "localhost",
-  show_sensitive_data_on_connection_error: true,
-  pool_size: 10
+database_url = System.get_env("PGHOST")
+
+if database_url do
+  config :atc, Aero.Repo,
+    username: Keyword.put(:username, System.get_env("PGUSER")),
+    password: Keyword.put(:password, System.get_env("PGPASSWORD")),
+    database: Keyword.put(:database, System.get_env("PGDATABASE")),
+    hostname: Keyword.put(:hostname, System.get_env("PGHOST")),
+    port: Keyword.put(:port, System.get_env("PGPORT") |> String.to_integer),
+    show_sensitive_data_on_connection_error: true,
+    pool_size: 10
+else
+  config :anais, Anais.Repo,
+    username: "postgres",
+    password: "postgres",
+    database: "anais_dev",
+    hostname: "localhost",
+    show_sensitive_data_on_connection_error: true,
+    pool_size: 10
+end
+
 
 # For development, we disable any cache and enable
 # debugging and code reloading.
