@@ -8,5 +8,5 @@ COPY . /app
 WORKDIR /app
 
 RUN mix local.hex --force && mix local.rebar --force
-RUN mix do deps.get, deps.compile
-CMD ["/app/run.sh"]
+# RUN mix do deps.get, deps.compile
+# CMD ["/app/run.sh"]

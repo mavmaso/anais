@@ -8,8 +8,9 @@ services:
       PGUSER: postgres
       PGPASSWORD: postgres
       PGDATABASE: anais_dev
-      PGPORT: 5432
       PGHOST: db
+    command: 
+      - iex -S mix phx.server
     ports:
       - "4000:4000"
     depends_on:
@@ -23,5 +24,7 @@ services:
     restart: always
     volumes:
       - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
 volumes:
   pgdata:

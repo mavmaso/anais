@@ -28,6 +28,11 @@ $ docker-compose up --build
 $ docker-compose up # Now access http://localhost:4000
 ```
 
+- `docker-compose build`
+- `docker-compose run --rm web mix setup`
+- `docker-compose up`
+- `docker-compose run --rm -e MIX_ENV=test web mix test`
+
 ## Database
   PostgreSQL
   ```

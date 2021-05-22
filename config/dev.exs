@@ -4,12 +4,11 @@ use Mix.Config
 database_url = System.get_env("PGHOST")
 
 if database_url do
-  config :atc, Aero.Repo,
-    username: Keyword.put(:username, System.get_env("PGUSER")),
-    password: Keyword.put(:password, System.get_env("PGPASSWORD")),
-    database: Keyword.put(:database, System.get_env("PGDATABASE")),
-    hostname: Keyword.put(:hostname, System.get_env("PGHOST")),
-    port: Keyword.put(:port, System.get_env("PGPORT") |> String.to_integer),
+  config :anais, Anais.Repo,
+    username: System.get_env("PGUSER"),
+    password: System.get_env("PGPASSWORD"),
+    database: System.get_env("PGDATABASE"),
+    hostname: System.get_env("PGHOST"),
     show_sensitive_data_on_connection_error: true,
     pool_size: 10
 else
@@ -21,6 +20,11 @@ else
     show_sensitive_data_on_connection_error: true,
     pool_size: 10
 end
+
+# username: System.get_env("PGUSER") || "postgres",
+# password: System.get_env("PGPASSWORD") || "postgres",
+# database: System.get_env("PGDATABASE") || "brainn_dev",
+# hostname: System.get_env("PGHOST") || "localhost",
 
 
 # For development, we disable any cache and enable
